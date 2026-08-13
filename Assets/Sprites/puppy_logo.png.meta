@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: 1a75c9e4db2e4453b91db279bd6ce4a6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6463997386730618627
+    second: puppy_logo_0
+  - first:
+      213: 2775451409612988175
+    second: puppy_logo_1
+  - first:
+      213: -55401545764467991
+    second: puppy_logo_2
+  - first:
+      213: -4500763412185480553
+    second: puppy_logo_3
+  - first:
+      213: -7258660323445385089
+    second: puppy_logo_4
+  - first:
+      213: -8281661057732015418
+    second: puppy_logo_5
+  - first:
+      213: -8973481828316726503
+    second: puppy_logo_6
+  - first:
+      213: 4689708345749055981
+    second: puppy_logo_7
+  - first:
+      213: 284319381732925345
+    second: puppy_logo_8
+  - first:
+      213: -7065366442863641846
+    second: puppy_logo_9
+  - first:
+      213: 754456354969149385
+    second: puppy_logo_10
+  - first:
+      213: -5782281742245850313
+    second: puppy_logo_11
+  - first:
+      213: -1282929984505136239
+    second: puppy_logo_12
+  - first:
+      213: -2048334869255146270
+    second: puppy_logo_13
+  - first:
+      213: -3005372759977943804
+    second: puppy_logo_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: puppy_logo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 110
+        width: 187
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df04ededf944b46a0800000000000000
+      internalID: -6463997386730618627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 130
+        width: 110
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0fd6512a52648620800000000000000
+      internalID: 2775451409612988175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_2
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 144
+        width: 78
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ea83b0769c2b3ff0800000000000000
+      internalID: -55401545764467991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_3
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 174
+        width: 118
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7920c9ec5831a81c0800000000000000
+      internalID: -4500763412185480553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 159
+        width: 27
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f78d0d3d4ee044b90800000000000000
+      internalID: -7258660323445385089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_5
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 126
+        width: 47
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ca82b76521a11d80800000000000000
+      internalID: -8281661057732015418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_6
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 16
+        width: 80
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b32c812d9c77380800000000000000
+      internalID: -8973481828316726503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_7
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 41
+        width: 37
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9ae80b4e0351140800000000000000
+      internalID: 4689708345749055981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_8
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 31
+        width: 103
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1af13f6a8fa12f300800000000000000
+      internalID: 284319381732925345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_9
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 0
+        width: 73
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0bb52577a6c2fd90800000000000000
+      internalID: -7065366442863641846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_10
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 24
+        width: 102
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cfd87cbe0e587a00800000000000000
+      internalID: 754456354969149385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_11
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 44
+        width: 86
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 733953a246531cfa0800000000000000
+      internalID: -5782281742245850313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_12
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 21
+        width: 111
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19bbfd1f9fd123ee0800000000000000
+      internalID: -1282929984505136239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_13
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 53
+        width: 54
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e43009f94ad293e0800000000000000
+      internalID: -2048334869255146270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puppy_logo_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1
+        width: 77
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40d11efd565ca46d0800000000000000
+      internalID: -3005372759977943804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      puppy_logo_0: -6463997386730618627
+      puppy_logo_1: 2775451409612988175
+      puppy_logo_10: 754456354969149385
+      puppy_logo_11: -5782281742245850313
+      puppy_logo_12: -1282929984505136239
+      puppy_logo_13: -2048334869255146270
+      puppy_logo_14: -3005372759977943804
+      puppy_logo_2: -55401545764467991
+      puppy_logo_3: -4500763412185480553
+      puppy_logo_4: -7258660323445385089
+      puppy_logo_5: -8281661057732015418
+      puppy_logo_6: -8973481828316726503
+      puppy_logo_7: 4689708345749055981
+      puppy_logo_8: 284319381732925345
+      puppy_logo_9: -7065366442863641846
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
