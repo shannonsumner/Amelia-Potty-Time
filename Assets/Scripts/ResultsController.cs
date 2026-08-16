@@ -22,6 +22,11 @@ public class ResultsController : MonoBehaviour
     public GameObject tooMuchPanel;
     public TMP_Text defeatCopyText;
 
+    [Header("Sounds")]
+    public AudioClip winSound;
+    public AudioClip loseSound;
+    public AudioClip dingSound;
+
     [Header("Colors")]
     public Color defaultColor = new Color(0.588f, 0.047f, 0.180f, 1f);
     public Color greenColor = new Color(0.2f, 0.7f, 0.2f, 1f);
@@ -176,6 +181,7 @@ public class ResultsController : MonoBehaviour
                 else
                 {
                     entry.textObject.color = greenColor;
+                    PlaySound(dingSound, 0.5f);
                 }
                 nextEntryIndex++;
             }
@@ -195,7 +201,10 @@ public class ResultsController : MonoBehaviour
             if (entry.source == "correct")
                 entry.textObject.color = redColor;
             else
+            {
                 entry.textObject.color = greenColor;
+                PlaySound(dingSound, 0.5f);
+            }
             nextEntryIndex++;
         }
 
@@ -207,14 +216,17 @@ public class ResultsController : MonoBehaviour
             defeatCopyText.text = $"Oops! Around {timeStr}, your sock found a puddle. " +
                 "Amelia needed a trip outside sooner than planned. Let's rethink her schedule!";
             defeatPanel.SetActive(true);
+            PlaySound(loseSound);
         }
         else if (hasExtraInputs)
         {
             tooMuchPanel.SetActive(true);
+            PlaySound(loseSound);
         }
         else
         {
             victoryPanel.SetActive(true);
+            PlaySound(winSound);
         }
 
         StartCoroutine(FadeInPopup());
@@ -237,6 +249,12 @@ public class ResultsController : MonoBehaviour
 
         popupCanvasGroup.alpha = 1f;
         popupCanvasGroup.blocksRaycasts = true;
+    }
+
+    void PlaySound(AudioClip clip, float volume = 1f)
+    {
+        if (clip != null)
+            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
     }
 
     void SetClockRotation(float totalMinutes)
