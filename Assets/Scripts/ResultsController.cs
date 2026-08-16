@@ -14,6 +14,14 @@ public class ResultsController : MonoBehaviour
     public Transform timesContainer;
     public GameObject timeEntryPrefab;
 
+    [Header("Popup")]
+    public GameObject popup;
+    public CanvasGroup popupCanvasGroup;
+    public GameObject victoryPanel;
+    public GameObject defeatPanel;
+    public GameObject tooMuchPanel;
+    public TMP_Text defeatCopyText;
+
     [Header("Colors")]
     public Color defaultColor = new Color(0.588f, 0.047f, 0.180f, 1f);
     public Color greenColor = new Color(0.2f, 0.7f, 0.2f, 1f);
@@ -37,9 +45,25 @@ public class ResultsController : MonoBehaviour
 
     private List<TimelineEntry> timeline = new List<TimelineEntry>();
     private Coroutine clockRoutine;
+    private bool hasExtraInputs;
 
     public void StartResults(List<int> playerTimes)
     {
+        popup.SetActive(false);
+        victoryPanel.SetActive(false);
+        defeatPanel.SetActive(false);
+        tooMuchPanel.SetActive(false);
+
+        hasExtraInputs = false;
+        foreach (int t in playerTimes)
+        {
+            if (System.Array.IndexOf(correctTimesMinutes, t) < 0)
+            {
+                hasExtraInputs = true;
+                break;
+            }
+        }
+
         BuildTimeline(playerTimes);
         PopulateTimesDisplay();
         if (clockRoutine != null)
@@ -108,14 +132,27 @@ public class ResultsController : MonoBehaviour
             if (timeline[i].source == "correct")
             {
                 missedIndex = i;
-                stopAt = timeline[i].minutes + 30f;
+                int shiftedMinutes = timeline[i].minutes + 30;
+                stopAt = shiftedMinutes;
+
+                // Remove any player input entry that collides with the shifted time
+                for (int j = timeline.Count - 1; j >= 0; j--)
+                {
+                    if (j != i && timeline[j].minutes == shiftedMinutes)
+                    {
+                        Destroy(timeline[j].textObject.gameObject);
+                        timeline.RemoveAt(j);
+                        if (j < i) missedIndex--;
+                        break;
+                    }
+                }
 
                 // Replace the missed time text with +30 min
-                TimelineEntry entry = timeline[i];
-                entry.minutes = timeline[i].minutes + 30;
+                TimelineEntry entry = timeline[missedIndex];
+                entry.minutes = shiftedMinutes;
                 if (entry.textObject != null)
                     entry.textObject.text = FormatTime(entry.minutes);
-                timeline[i] = entry;
+                timeline[missedIndex] = entry;
                 break;
             }
         }
@@ -162,7 +199,44 @@ public class ResultsController : MonoBehaviour
             nextEntryIndex++;
         }
 
-        // TODO: handle too_many_inputs case and show win/lose UI
+        yield return new WaitForSeconds(1f);
+
+        if (missedIndex >= 0)
+        {
+            string timeStr = FormatTime(timeline[missedIndex].minutes);
+            defeatCopyText.text = $"Oops! Around {timeStr}, your sock found a puddle. " +
+                "Amelia needed a trip outside sooner than planned. Let's rethink her schedule!";
+            defeatPanel.SetActive(true);
+        }
+        else if (hasExtraInputs)
+        {
+            tooMuchPanel.SetActive(true);
+        }
+        else
+        {
+            victoryPanel.SetActive(true);
+        }
+
+        StartCoroutine(FadeInPopup());
+    }
+
+    IEnumerator FadeInPopup()
+    {
+        popup.SetActive(true);
+        popupCanvasGroup.alpha = 0f;
+        popupCanvasGroup.blocksRaycasts = false;
+
+        float elapsed = 0f;
+        float duration = 0.3f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            popupCanvasGroup.alpha = elapsed / duration;
+            yield return null;
+        }
+
+        popupCanvasGroup.alpha = 1f;
+        popupCanvasGroup.blocksRaycasts = true;
     }
 
     void SetClockRotation(float totalMinutes)

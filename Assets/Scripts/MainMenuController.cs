@@ -23,6 +23,9 @@ public class MainMenuController : MonoBehaviour
     public ScheduleController scheduleController;
     public GameObject resultsPanel;
     public ResultsController resultsController;
+    public Button victoryMenuButton;
+    public Button defeatMenuButton;
+    public Button tooMuchMenuButton;
     public float fadeDuration = 0.4f;
 
     private CanvasGroup menuCanvasGroup;
@@ -55,6 +58,9 @@ public class MainMenuController : MonoBehaviour
         nextButton.onClick.AddListener(OnNext);
         backFromScheduleButton.onClick.AddListener(OnBackFromSchedule);
         scheduleController.goButton.onClick.AddListener(OnSet);
+        victoryMenuButton.onClick.AddListener(OnPopupBackToMenu);
+        defeatMenuButton.onClick.AddListener(OnPopupBackToMenu);
+        tooMuchMenuButton.onClick.AddListener(OnPopupBackToMenu);
 
         nextButton.interactable = false;
         pottyTripsDropdown.onValueChanged.AddListener(OnDropdownChanged);
@@ -115,6 +121,12 @@ public class MainMenuController : MonoBehaviour
         var times = scheduleController.GetScheduledTimesInMinutes();
         resultsController.StartResults(times);
         StartCoroutine(TransitionPanels(schedulePanel, scheduleCanvasGroup, resultsPanel, resultsCanvasGroup));
+    }
+
+    void OnPopupBackToMenu()
+    {
+        resultsController.popup.SetActive(false);
+        StartCoroutine(TransitionPanels(resultsPanel, resultsCanvasGroup, mainMenuPanel, menuCanvasGroup));
     }
 
     IEnumerator TransitionPanels(GameObject fromObj, CanvasGroup fromCG, GameObject toObj, CanvasGroup toCG)
