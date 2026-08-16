@@ -11,17 +11,26 @@ public class MainMenuController : MonoBehaviour
     public Button backFromCreditsButton;
     public Button playButton;
     public Button nextButton;
+    public Button backFromScheduleButton;
     public TMP_Dropdown pottyTripsDropdown;
     public GameObject mainMenuPanel;
     public GameObject storyPanel;
     public GameObject creditsPanel;
     public GameObject setupPanel;
+    public GameObject schedulePanel;
+    public TMP_Text scheduleHeading;
+    public Transform inputsContainer;
+    public ScheduleController scheduleController;
+    public GameObject resultsPanel;
+    public ResultsController resultsController;
     public float fadeDuration = 0.4f;
 
     private CanvasGroup menuCanvasGroup;
     private CanvasGroup storyCanvasGroup;
     private CanvasGroup creditsCanvasGroup;
     private CanvasGroup setupCanvasGroup;
+    private CanvasGroup scheduleCanvasGroup;
+    private CanvasGroup resultsCanvasGroup;
 
     void Start()
     {
@@ -29,16 +38,23 @@ public class MainMenuController : MonoBehaviour
         storyCanvasGroup = GetOrAddCanvasGroup(storyPanel);
         creditsCanvasGroup = GetOrAddCanvasGroup(creditsPanel);
         setupCanvasGroup = GetOrAddCanvasGroup(setupPanel);
+        scheduleCanvasGroup = GetOrAddCanvasGroup(schedulePanel);
+        resultsCanvasGroup = GetOrAddCanvasGroup(resultsPanel);
 
         storyPanel.SetActive(false);
         creditsPanel.SetActive(false);
         setupPanel.SetActive(false);
+        schedulePanel.SetActive(false);
+        resultsPanel.SetActive(false);
 
         newGameButton.onClick.AddListener(OnNewGame);
         backToMenuButton.onClick.AddListener(OnBackToMenu);
         creditsButton.onClick.AddListener(OnCredits);
         backFromCreditsButton.onClick.AddListener(OnBackFromCredits);
         playButton.onClick.AddListener(OnPlay);
+        nextButton.onClick.AddListener(OnNext);
+        backFromScheduleButton.onClick.AddListener(OnBackFromSchedule);
+        scheduleController.goButton.onClick.AddListener(OnSet);
 
         nextButton.interactable = false;
         pottyTripsDropdown.onValueChanged.AddListener(OnDropdownChanged);
@@ -72,6 +88,33 @@ public class MainMenuController : MonoBehaviour
     void OnPlay()
     {
         StartCoroutine(TransitionPanels(storyPanel, storyCanvasGroup, setupPanel, setupCanvasGroup));
+    }
+
+    void OnNext()
+    {
+        int tripCount = pottyTripsDropdown.value;
+        string tripText = pottyTripsDropdown.options[tripCount].text;
+
+        scheduleHeading.text = $"Amelia's counting on you!\nSet the times for all {tripText} potty trips.";
+
+        // First child is Labels header, trip rows start at index 1
+        for (int i = 1; i < inputsContainer.childCount; i++)
+            inputsContainer.GetChild(i).gameObject.SetActive(i - 1 < tripCount);
+
+        scheduleController.InitializeSchedule(tripCount);
+        StartCoroutine(TransitionPanels(setupPanel, setupCanvasGroup, schedulePanel, scheduleCanvasGroup));
+    }
+
+    void OnBackFromSchedule()
+    {
+        StartCoroutine(TransitionPanels(schedulePanel, scheduleCanvasGroup, setupPanel, setupCanvasGroup));
+    }
+
+    void OnSet()
+    {
+        var times = scheduleController.GetScheduledTimesInMinutes();
+        resultsController.StartResults(times);
+        StartCoroutine(TransitionPanels(schedulePanel, scheduleCanvasGroup, resultsPanel, resultsCanvasGroup));
     }
 
     IEnumerator TransitionPanels(GameObject fromObj, CanvasGroup fromCG, GameObject toObj, CanvasGroup toCG)

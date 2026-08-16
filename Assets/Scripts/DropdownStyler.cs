@@ -2,54 +2,99 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum DropdownTheme { Dark, Light }
+
 [RequireComponent(typeof(TMP_Dropdown))]
 public class DropdownStyler : MonoBehaviour
 {
-    [Header("Colors")]
-    public Color backgroundColor = new Color(0.588f, 0.047f, 0.180f, 1f);
-    public Color textColor = new Color(0.961f, 0.922f, 0.816f, 1f);
-    public Color highlightColor = new Color(0.72f, 0.11f, 0.27f, 1f);
-    public Color arrowColor = new Color(0.961f, 0.922f, 0.816f, 1f);
-    public Color checkmarkColor = new Color(0.961f, 0.922f, 0.816f, 1f);
+    public DropdownTheme theme = DropdownTheme.Dark;
 
     [Header("Layout")]
-    public float itemHeight = 70f;
+    public float itemHeight = 0f;
     public float padding = 10f;
     public float cornerRadius = 20f;
+    public float maxHeight = 400f;
 
     private TMP_Dropdown dropdown;
     private RectTransform templateRect;
+
+    private Color backgroundColor;
+    private Color textColor;
+    private Color highlightColor;
+    private Color checkmarkColor;
+
+    static readonly Color DarkBg = new Color(0.588f, 0.047f, 0.180f, 1f);
+    static readonly Color CreamText = new Color(0.961f, 0.922f, 0.816f, 1f);
+    static readonly Color DarkHighlight = new Color(0.72f, 0.11f, 0.27f, 1f);
+
+    static readonly Color LightBg = new Color(0.980f, 0.937f, 0.867f, 1f);
+    static readonly Color DarkText = new Color(0.588f, 0.047f, 0.180f, 1f);
+    static readonly Color LightHighlight = new Color(0.765f, 0.624f, 0.612f, 1f);
 
     void Start()
     {
         dropdown = GetComponent<TMP_Dropdown>();
         templateRect = dropdown.template;
 
-        ResizeTemplateToFitItems();
-        StyleDropdownColors();
+        ApplyThemeColors();
+        DetectItemHeight();
+        ResizeTemplate();
+        StyleTemplate();
         ApplyRoundedCorners();
-        RemoveScrollbar();
+        HideScrollbar();
     }
 
-    void ResizeTemplateToFitItems()
+    void ApplyThemeColors()
+    {
+        if (theme == DropdownTheme.Dark)
+        {
+            backgroundColor = DarkBg;
+            textColor = CreamText;
+            highlightColor = DarkHighlight;
+            checkmarkColor = CreamText;
+        }
+        else
+        {
+            backgroundColor = LightBg;
+            textColor = DarkText;
+            highlightColor = LightHighlight;
+            checkmarkColor = DarkText;
+        }
+    }
+
+    void DetectItemHeight()
+    {
+        if (itemHeight > 0f)
+            return;
+
+        Toggle itemToggle = templateRect.GetComponentInChildren<Toggle>(true);
+        if (itemToggle != null)
+        {
+            float detected = ((RectTransform)itemToggle.transform).sizeDelta.y;
+            if (detected > 10f)
+            {
+                itemHeight = detected;
+                return;
+            }
+        }
+
+        float buttonHeight = ((RectTransform)transform).sizeDelta.y;
+        itemHeight = buttonHeight > 0f ? buttonHeight : 70f;
+    }
+
+    void ResizeTemplate()
     {
         int itemCount = dropdown.options.Count;
-        float totalHeight = itemCount * itemHeight + padding * 2;
-
-        // Cap height so the list doesn't overflow the screen
-        float maxHeight = 400f;
-        totalHeight = Mathf.Min(totalHeight, maxHeight);
+        float totalHeight = Mathf.Min(itemCount * itemHeight + padding * 2, maxHeight);
 
         templateRect.sizeDelta = new Vector2(templateRect.sizeDelta.x, totalHeight);
-
-        // Anchor below the dropdown button (pivot at top)
         templateRect.pivot = new Vector2(0.5f, 1f);
         templateRect.anchorMin = new Vector2(0f, 0f);
         templateRect.anchorMax = new Vector2(1f, 0f);
-        templateRect.anchoredPosition = new Vector2(0f, 0f);
+        templateRect.anchoredPosition = Vector2.zero;
     }
 
-    void StyleDropdownColors()
+    void StyleTemplate()
     {
         // Template background
         Image templateImage = templateRect.GetComponent<Image>();
@@ -59,62 +104,39 @@ public class DropdownStyler : MonoBehaviour
             templateImage.color = backgroundColor;
         }
 
-        // Item hover/selected colors via the Toggle's ColorBlock
+        // Item toggle colors — normalColor is white so it doesn't multiply with the bg
         Toggle itemToggle = templateRect.GetComponentInChildren<Toggle>(true);
         if (itemToggle != null)
         {
             ColorBlock cb = itemToggle.colors;
-            cb.normalColor = backgroundColor;
+            cb.normalColor = Color.white;
             cb.highlightedColor = highlightColor;
             cb.pressedColor = highlightColor;
             cb.selectedColor = highlightColor;
             cb.colorMultiplier = 1f;
             itemToggle.colors = cb;
 
-            // Item background image
             Image itemBg = itemToggle.targetGraphic as Image;
             if (itemBg != null)
                 itemBg.color = backgroundColor;
         }
 
-        // Item text color
+        // Item text
         TMP_Text itemLabel = dropdown.itemText;
         if (itemLabel != null)
             itemLabel.color = textColor;
 
-        // Caption (selected value) text color
-        TMP_Text captionLabel = dropdown.captionText;
-        if (captionLabel != null)
-            captionLabel.color = textColor;
-
-        // Arrow color
-        Transform arrowTransform = transform.Find("Arrow");
-        if (arrowTransform != null)
+        // Checkmark
+        Toggle toggle = templateRect.GetComponentInChildren<Toggle>(true);
+        if (toggle != null && toggle.graphic != null)
         {
-            Image arrowImage = arrowTransform.GetComponent<Image>();
-            if (arrowImage != null)
-                arrowImage.color = arrowColor;
+            Image checkImg = toggle.graphic as Image;
+            if (checkImg != null)
+                checkImg.color = checkmarkColor;
         }
-
-        // Checkmark color
-        Transform checkmark = templateRect.GetComponentInChildren<Toggle>(true)?.graphic?.transform;
-        if (checkmark != null)
-        {
-            Image checkmarkImage = checkmark.GetComponent<Image>();
-            if (checkmarkImage != null)
-                checkmarkImage.color = checkmarkColor;
-        }
-
-        // Main dropdown button highlight colors
-        ColorBlock dropdownColors = dropdown.colors;
-        dropdownColors.normalColor = Color.white;
-        dropdownColors.highlightedColor = new Color(0.95f, 0.95f, 0.95f, 1f);
-        dropdownColors.pressedColor = new Color(0.9f, 0.9f, 0.9f, 1f);
-        dropdownColors.selectedColor = Color.white;
-        dropdown.colors = dropdownColors;
     }
 
-    void RemoveScrollbar()
+    void HideScrollbar()
     {
         ScrollRect scrollRect = templateRect.GetComponent<ScrollRect>();
         if (scrollRect != null)
@@ -124,7 +146,6 @@ public class DropdownStyler : MonoBehaviour
             scrollRect.inertia = true;
         }
 
-        // Hide the scrollbar visually but keep scroll functionality
         Scrollbar scrollbar = templateRect.GetComponentInChildren<Scrollbar>(true);
         if (scrollbar != null)
             scrollbar.gameObject.SetActive(false);
@@ -132,9 +153,9 @@ public class DropdownStyler : MonoBehaviour
 
     void ApplyRoundedCorners()
     {
-        Sprite roundedSprite = CreateRoundedRectSprite(128, 128, cornerRadius);
+        float radius = theme == DropdownTheme.Light ? cornerRadius * 0.5f : cornerRadius;
+        Sprite roundedSprite = CreateRoundedRectSprite(128, 128, radius);
 
-        // Template background
         Image templateImage = templateRect.GetComponent<Image>();
         if (templateImage != null)
         {
@@ -142,7 +163,16 @@ public class DropdownStyler : MonoBehaviour
             templateImage.type = Image.Type.Sliced;
         }
 
-        // Viewport mask — this is what actually clips the content
+        // Add border for light theme
+        if (theme == DropdownTheme.Light)
+        {
+            Outline border = templateRect.gameObject.GetComponent<Outline>();
+            if (border == null)
+                border = templateRect.gameObject.AddComponent<Outline>();
+            border.effectColor = new Color(0.420f, 0.122f, 0.165f, 1f);
+            border.effectDistance = new Vector2(2f, -2f);
+        }
+
         Mask viewportMask = templateRect.GetComponentInChildren<Mask>(true);
         if (viewportMask != null)
         {
@@ -167,7 +197,6 @@ public class DropdownStyler : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                // Find distance to nearest corner circle center
                 float dx = 0f, dy = 0f;
 
                 if (x < radius) dx = radius - x;
@@ -179,7 +208,6 @@ public class DropdownStyler : MonoBehaviour
                 if (dx > 0 && dy > 0)
                 {
                     float dist = Mathf.Sqrt(dx * dx + dy * dy);
-                    // Anti-alias the edge
                     if (dist > radius)
                         tex.SetPixel(x, y, clear);
                     else if (dist > radius - 1.5f)
@@ -196,7 +224,6 @@ public class DropdownStyler : MonoBehaviour
 
         tex.Apply();
 
-        // 9-slice borders so the corners don't stretch
         int border = Mathf.CeilToInt(radius);
         return Sprite.Create(
             tex,
